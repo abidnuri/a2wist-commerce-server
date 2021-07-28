@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // Mongodb connetion
-const DB = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.xzynl.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
+const DB = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.o8ccw.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 
 // Mongoose
 mongoose
