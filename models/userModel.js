@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
 
+mongoose.Promise = global.Promise;
+
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -21,6 +23,11 @@ const userSchema = new mongoose.Schema({
   image: {
     type: String,
     require: [true, "Please upload a image"],
+  },
+  role: {
+    type: String,
+    enum: ["CUSTOMER", "DEALER"],
+    default: "CUSTOMER",
   },
   gender: {
     type: String,
@@ -50,4 +57,4 @@ userSchema.pre("save", async function (next) {
   this.password = await bcrypt.hash(this.password, salt);
 });
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model.User || mongoose.model("User", userSchema);

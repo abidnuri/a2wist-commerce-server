@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
-const User = require("../models/UserModel.js");
+const mongoose = require('mongoose')
+const User = mongoose.model('User')
 
 const decodeToken = async (token) => {
   const decoded = jwt.verify(token, process.env.SECRET_KEY);
