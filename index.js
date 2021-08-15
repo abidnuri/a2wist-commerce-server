@@ -3,6 +3,8 @@ const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 require("dotenv").config();
+const AppError = require('./utils/AppError')
+const globalErrorHandler = require('./controllers/errorController')
 
 const app = express();
 
@@ -43,20 +45,10 @@ app.get("/ping", (req, res) => {
 
 // Unknown route handling
 app.all('*', (req, res, next) => {
-  const err = new Error(`Can't find the "${req.originalUrl}" in the server.`)
-  err.statusCode = 404
-  err.status = 'fail'
-  next(err)
+  next(new AppError(`Can't find the "${req.originalUrl}" in the server.`, 404))
 })
 
 // Global Error handling Middleware
-app.use((err, req, res, next) => {
-  err.statusCode = err.statusCode || 500
-  err.status = err.status || 'error'
-  res.status(err.statusCode).json({
-    status: err.status,
-    message: err.message
-  })
-})
+app.use(globalErrorHandler)
 
 app.listen(process.env.PORT || 3333, console.log("server is running"));
