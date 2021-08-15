@@ -5,13 +5,13 @@ const decodeToken = require('../utils/decodeToken')
 
 exports.addProduct = asyncHandler(async(req, res, next) => {
     const user = await decodeToken(req.cookies.token);
-
+    if(user.role === 'SELLER'){
     const newProduct = await Product.create({...req.body, shopID: user.email});
     if(newProduct){
         res.status(201).json({status: 'success', product: newProduct})
     }else {
     res.status("401").json({ status: "fail", message: "Something went wrong" });
-    }
+    }}
 })
 
 exports.getAllProduct = asyncHandler(async(req,res, next) => {
@@ -30,7 +30,7 @@ exports.getAllProduct = asyncHandler(async(req,res, next) => {
 exports.myProducts = asyncHandler(async(req, res, next) => {
     const user = await decodeToken(req.cookies.token);
     
-    if(user.role === 'DEALER'){
+    if(user.role === 'SELLER'){
         const products = await Product.find({shopID: user.email})
 
         if(products){

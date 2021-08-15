@@ -26,12 +26,8 @@ const userSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ["CUSTOMER", "DEALER"],
+    enum: ["CUSTOMER", "SELLER"],
     default: "CUSTOMER",
-  },
-  gender: {
-    type: String,
-    require: [true, "Please select your gender"],
   },
   password: {
     type: String,
