@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const cookieParser = require("cookie-parser");
+// const cookieParser = require("cookie-parser");
 const cors = require("cors");
 require("dotenv").config();
 
@@ -10,7 +10,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+// app.use(cookieParser());
 
 // Mongodb connetion
 const DB = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.o8ccw.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
@@ -28,11 +28,11 @@ mongoose
   })
   .catch((err) => console.log("Error : ", err));
 
-// Routes
+// import route
 const authRouter = require("./routes/authRoutes");
 const productRouter = require('./routes/productRoutes')
 
-app.use("/auth", authRouter);
+// app.use("/auth", authRouter);
 app.use('/product', productRouter)
 
 app.get("/ping", (req, res) => {
