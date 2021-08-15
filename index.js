@@ -15,9 +15,11 @@ app.use(cookieParser());
 // Mongodb connetion
 const DB = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.o8ccw.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 
+const newUrl = `mongodb+srv://eswap:${process.env.DB_PASS}@cluster0.znd2u.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`
+
 // Mongoose
 mongoose
-  .connect(DB, {
+  .connect(newUrl, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
