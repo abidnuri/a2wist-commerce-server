@@ -26,9 +26,10 @@ exports.getAllProduct = asyncHandler(async(req,res, next) => {
             return { title: item.title, regularPrice: item.regularPrice, description: item.description, image: item.image, id: item._id}
         })
         res.status(200).json({status: 'success', result: filtered.length, data: filtered})
-    }else {
-        res.status(400).json({status: 'fail', message: 'Something went wrong..'})
     }
+    // else {
+    //     res.status(400).json({status: 'fail', message: 'Something went wrong..'})
+    // }
     next()
 })
 
@@ -54,6 +55,19 @@ exports.myProducts = asyncHandler(async(req, res, next) => {
             status: 'fail',
             message: `Cant't find your shop!`
         })
+    }
+    next()
+})
+
+exports.updateProduct = asyncHandler(async(req, res, next) => {
+    console.log(req.params.id)
+
+    const user = await decodeToken(req.cookies.token);
+
+    const product = await Product.findOne({_id: req.params.id});
+
+    if(user.email === product.shopID) {
+        res.status(201).json({status: 'success', product: product})
     }
     next()
 })
