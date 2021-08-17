@@ -2,6 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 // const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const fs = require("fs");
+const morgan = require("morgan");
 require("dotenv").config();
 const AppError = require('./utils/AppError')
 const globalErrorHandler = require('./controllers/errorController')
@@ -13,6 +15,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 // app.use(cookieParser());
+app.use(morgan("dev"));
 
 
 // Mongodb connetion
@@ -34,10 +37,15 @@ mongoose
 
 // import route
 const authRouter = require("./routes/authRoutes");
-const productRouter = require('./routes/productRoutes')
+const productRouter = require('./routes/productRoutes');
+//firebase auth
+const firebaseAuthRoute = require('./routes/firebaseAuthRoute');
 
-// app.use("/auth", authRouter);
+
+app.use("/auth", authRouter);
 app.use('/product', productRouter)
+
+app.use('/fireauth', firebaseAuthRoute);
 
 app.get("/ping", (req, res) => {
   res.send("Server is running");
