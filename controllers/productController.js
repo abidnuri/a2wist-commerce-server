@@ -23,7 +23,7 @@ exports.getAllProduct = asyncHandler(async(req,res, next) => {
 
     if(products){
         const filtered = products.map(item => {
-            return { title: item.title, regularPrice: item.regularPrice, description: item.description, image: item.image, id: item._id}
+            return { title: item.title, regularPrice: item.regularPrice, description: item.description, image: item.image, id: item._id, inStock: item.stock > 0, category: item.category}
         })
         res.status(200).json({status: 'success', result: filtered.length, data: filtered})
     }
@@ -64,10 +64,12 @@ exports.updateProduct = asyncHandler(async(req, res, next) => {
 
     const user = await decodeToken(req.cookies.token);
 
-    const product = await Product.findOne({_id: req.params.id});
+    const product = await Product.findById(req.params.id);
+    console.log(req.body)
 
     if(user.email === product.shopID) {
-        res.status(201).json({status: 'success', product: product})
+        const updated = await Product.findByIdAndUpdate(req.params.id, req.body, {new: true});
+        res.status(201).json({status: 'success', data: updated})
     }
     next()
 })

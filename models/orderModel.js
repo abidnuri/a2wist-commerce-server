@@ -1,10 +1,9 @@
 const mongoose = require('mongoose')
 
 const order = new mongoose.Schema({
-    name: String,
+    title: String,
     price: Number,
     id: String,
-    shopId: String,
     quantity: Number,
 })
 
@@ -18,11 +17,23 @@ const orderSchema = new mongoose.Schema({
         require: true,
     },
     address: {
-        type: string,
+        type: String,
         require: true,
     },
+    shopID: {
+        type: String,
+        require: true
+    },
     products: [order],
-    orderDate: Date.now()
+    orderDate: {
+        type: Date,
+        default: Date.now()
+    },
+    status: {
+        type: String,
+        enum: ['PENDING', 'CANCELLED', 'ONGOING', 'FULFILLED' ],
+        default: 'PENDING'
+    }
 })
 
 module.exports = mongoose.model('Order', orderSchema)

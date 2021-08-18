@@ -3,27 +3,32 @@ const mongoose = require('mongoose')
 const productSchema = new mongoose.Schema({
     title: {
         type: String,
-        required: [true, 'Product Title is required.']
+        require: [true, 'Product Title is required.']
     },
     regularPrice: {
         type: Number,
-        required: [true, 'Product Price is required']
+        require: [true, 'Product Price is required']
     },
     stock: {
         type: Number,
-        required: [true, 'Product Stock is required']
+        require: [true, 'Product Stock is required']
     },
     description: {
         type: String,
-        required: [true, 'Please say something about your product.']
+        require: [true, 'Please say something about your product.']
     },
     image: {
         type: String,
-        required: [true, 'Upload an image of your product']
+        require: [true, 'Upload an image of your product']
     },
     shopID: {
         type: String,
-        required: [true, 'Shop ID is required.']
+        require: [true, 'Shop ID is required.']
+    },
+    category: {
+        type: String,
+        enum: ['TECH', 'CLOTH', 'BOOK', 'GADGET', 'FURNITURE', 'OTHER'],
+        require: [true, 'Please select your product category']
     }
 })
 

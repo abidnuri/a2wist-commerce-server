@@ -9,7 +9,10 @@ const globalErrorHandler = require('./controllers/errorController')
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin : "*",
+  credentials: true,
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -35,9 +38,11 @@ mongoose
 // Routes
 const authRouter = require("./routes/authRoutes");
 const productRouter = require('./routes/productRoutes')
+const orderRouter = require('./routes/orderRoutes')
 
 app.use("/auth", authRouter);
 app.use('/product', productRouter)
+app.use('/order', orderRouter)
 
 app.get("/ping", (req, res) => {
   res.send("Server is running");
