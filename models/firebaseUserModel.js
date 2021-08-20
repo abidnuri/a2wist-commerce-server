@@ -13,13 +13,14 @@ const userSchema = new mongoose.Schema({
         default: "subscriber"
     },
     cart: {
-        type: array,
+        type: Array,
         default: [],
     },
     address: String,
 
+    //   wishlist: [{ type: ObjectId, ref: "Product" }],
 },
     { timestamps: true },
 );
 
-module.export = mongoose.model('FireUser', userSchema);
+module.exports = mongoose.model('FireUser', userSchema);
