@@ -10,19 +10,23 @@ const order = new mongoose.Schema({
 const orderSchema = new mongoose.Schema({
     customer: {
         type: String,
-        require: [true],
+        required: [true],
     },
     customerEmail: {
         type: String,
-        require: true,
+        required: true,
+    },
+    customerPhone: {
+        type: String,
+        required: true
     },
     address: {
         type: String,
-        require: true,
+        required: true,
     },
     shopID: {
         type: String,
-        require: true
+        required: true
     },
     products: [order],
     orderDate: {

@@ -29,6 +29,9 @@ const userSchema = new mongoose.Schema({
     enum: ["CUSTOMER", "SELLER"],
     default: "CUSTOMER",
   },
+  shopID: {
+    type: String
+  },
   password: {
     type: String,
     require: [true, "Please enter a strong password."],
