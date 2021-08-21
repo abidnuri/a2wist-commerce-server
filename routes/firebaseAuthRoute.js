@@ -5,7 +5,7 @@ const router = express.Router();
 const {authCheck} = require("../middlewares/firebaseAuth")
 
 //controller
-const { createOrUpdateUser } = require("../controllers/firebaseAuthController");
+const { createOrUpdateUser, currentUser } = require("../controllers/firebaseAuthController");
 
 router.post("/create-or-update-user", authCheck, createOrUpdateUser);
 router.post("/current-user", authCheck, currentUser);
