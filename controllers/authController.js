@@ -23,7 +23,8 @@ exports.login = asyncHandler(async (req, res, next) => {
       name: user.name,
       image: user.image,
       phone: user.phone,
-      shopID: user.shopID
+      shopID: user.shopID,
+      token: token
     });
   } else {
     res

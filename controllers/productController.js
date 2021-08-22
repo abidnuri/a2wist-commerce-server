@@ -62,7 +62,8 @@ exports.myProducts = asyncHandler(async(req, res, next) => {
 exports.updateProduct = asyncHandler(async(req, res, next) => {
     console.log(req.params.id)
 
-    const user = await decodeToken(req.cookies.token);
+    // const user = await decodeToken(req.cookies.token);
+    const user = await decodeToken(req.body.token)
 
     const product = await Product.findById(req.params.id);
     console.log(req.body)
