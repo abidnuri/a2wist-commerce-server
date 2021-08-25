@@ -5,9 +5,10 @@ const router = express.Router();
 const { authCheck, adminCheck } = require('../middlewares/firebaseAuth');
 
 // controller
-const { create } = require('../controllers/productsController');
+const { create, read } = require('../controllers/productsController');
 
 // routes
 router.post("/allproducts", authCheck, adminCheck, create);
+router.get("/getallproducts", read);
 
 module.exports = router;
