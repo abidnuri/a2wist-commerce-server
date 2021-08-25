@@ -38,14 +38,20 @@ mongoose
 // import route
 const authRouter = require("./routes/authRoutes");
 const productRouter = require('./routes/productRoutes');
+
+
 //firebase auth
 const firebaseAuthRoute = require('./routes/firebaseAuthRoute');
 
+//products router
+const productsRouter = require('./routes/productsRoutes');
 
 app.use("/auth", authRouter);
-app.use('/product', productRouter)
+app.use('/product', productRouter);
 
 app.use('/fireauth', firebaseAuthRoute);
+//products router
+app.use('/products', productsRouter);
 
 app.get("/ping", (req, res) => {
   res.send("Server is running");
