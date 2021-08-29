@@ -11,7 +11,10 @@ const globalErrorHandler = require('./controllers/errorController')
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  // origin : "http://localhost:3000/",
+  credentials: true,
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 // app.use(cookieParser());
@@ -61,6 +64,12 @@ app.use('/products', productsRouter);
 app.use('/cloudinary', cloudinary);
 
 // app.use('/')
+const productRouter = require('./routes/productRoutes')
+const orderRouter = require('./routes/orderRoutes')
+
+app.use("/auth", authRouter);
+app.use('/product', productRouter)
+app.use('/order', orderRouter)
 
 app.get("/ping", (req, res) => {
   res.send("Server is running");

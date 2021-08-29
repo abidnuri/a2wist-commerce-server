@@ -24,6 +24,11 @@ const productSchema = new mongoose.Schema({
     shopID: {
         type: String,
         required: [true, 'Shop ID is required.']
+    },
+    category: {
+        type: String,
+        enum: ['TECH', 'CLOTH', 'BOOK', 'GADGET', 'FURNITURE', 'OTHER'],
+        required: [true, 'Please select your product category']
     }
 })
 

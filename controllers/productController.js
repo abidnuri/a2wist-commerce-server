@@ -8,7 +8,7 @@ exports.addProduct = asyncHandler(async(req, res, next) => {
     const user = await decodeToken(req.cookies.token);
 
     if(user.role === 'SELLER'){
-        const newProduct = await Product.create({...req.body, shopID: user.email});
+        const newProduct = await Product.create({...req.body, shopID: user.shopID});
         if(newProduct){
             res.status(201).json({status: 'success', product: newProduct})
         }else {
@@ -23,7 +23,7 @@ exports.getAllProduct = asyncHandler(async(req,res, next) => {
 
     if(products){
         const filtered = products.map(item => {
-            return { title: item.title, regularPrice: item.regularPrice, description: item.description, image: item.image, id: item._id}
+            return { title: item.title, regularPrice: item.regularPrice, description: item.description, image: item.image, id: item._id, inStock: item.stock > 0, category: item.category, shopID: item.shopID}
         })
         res.status(200).json({status: 'success', result: filtered.length, data: filtered})
     }
@@ -37,7 +37,7 @@ exports.myProducts = asyncHandler(async(req, res, next) => {
     const user = await decodeToken(req.cookies.token);
     
     if(user.role === 'SELLER'){
-        const products = await Product.find({shopID: user.email})
+        const products = await Product.find({shopID: user.shopID})
 
         if(products){
             res.status(200).json({
@@ -62,12 +62,15 @@ exports.myProducts = asyncHandler(async(req, res, next) => {
 exports.updateProduct = asyncHandler(async(req, res, next) => {
     console.log(req.params.id)
 
-    const user = await decodeToken(req.cookies.token);
+    // const user = await decodeToken(req.cookies.token);
+    const user = await decodeToken(req.body.token)
 
-    const product = await Product.findOne({_id: req.params.id});
+    const product = await Product.findById(req.params.id);
+    console.log(req.body)
 
     if(user.email === product.shopID) {
-        res.status(201).json({status: 'success', product: product})
+        const updated = await Product.findByIdAndUpdate(req.params.id, req.body, {new: true});
+        res.status(201).json({status: 'success', data: updated})
     }
     next()
 })
