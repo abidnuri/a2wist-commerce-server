@@ -40,11 +40,15 @@ const authRouter = require("./routes/authRoutes");
 const productRouter = require('./routes/productRoutes');
 
 
+
+
 //firebase auth
 const firebaseAuthRoute = require('./routes/firebaseAuthRoute');
 
 //products router
 const productsRouter = require('./routes/productsRoutes');
+//cloudinary routes
+const cloudinary = require('./routes/cloudinary');
 
 app.use("/auth", authRouter);
 app.use('/product', productRouter);
@@ -52,6 +56,11 @@ app.use('/product', productRouter);
 app.use('/fireauth', firebaseAuthRoute);
 //products router
 app.use('/products', productsRouter);
+
+//cloudinary use
+app.use('/cloudinary', cloudinary);
+
+// app.use('/')
 
 app.get("/ping", (req, res) => {
   res.send("Server is running");
