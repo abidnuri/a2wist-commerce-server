@@ -40,10 +40,6 @@ mongoose
 
 // import route
 const authRouter = require("./routes/authRoutes");
-const productRouter = require('./routes/productRoutes');
-
-
-
 
 //firebase auth
 const firebaseAuthRoute = require('./routes/firebaseAuthRoute');
@@ -54,7 +50,7 @@ const productsRouter = require('./routes/productsRoutes');
 const cloudinary = require('./routes/cloudinary');
 
 app.use("/auth", authRouter);
-app.use('/product', productRouter);
+// app.use('/product', productRouter);
 
 app.use('/fireauth', firebaseAuthRoute);
 //products router
